@@ -3,7 +3,8 @@ import "./products.scss";
 import Add from "../../components/add/Add";
 import DataTable from "../../components/dataTable/DataTable";
 import { GridColDef } from "@mui/x-data-grid";
-import { products } from "../../data";
+// import { products } from "../../data";
+import { useQuery } from "@tanstack/react-query";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 90 },
@@ -55,13 +56,23 @@ const columns: GridColDef[] = [
 
 const Products = () => {
   const [open, setOpen] = useState(false);
+  const { isPending, data } = useQuery({
+    queryKey: ['repoData'],
+    queryFn: () =>
+      fetch('http://localhost:8800/api/products').then(
+        (res) => res.json(),
+      ),
+  })
+
   return (
     <div className="products">
       <div className="info">
         <h1>Products</h1>
         <button onClick={() => setOpen(true)}>+ Add New Product</button>
       </div>
-      <DataTable slug="products" columns={columns} rows={products} />
+      {isPending ? "Loading..." : (
+        <DataTable slug="products" columns={columns} rows={data} />
+      )}
       {open && <Add slug="product" columns={columns} setOpen={setOpen} />}
     </div>
   )
