@@ -1,3 +1,6 @@
+@import "../../styles/variables.scss";
+@import "../../styles/responsive.scss";
+
 .lineChartBox {
     display: flex;
     justify-content: space-between;
@@ -13,6 +16,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
+
+            @include xxl {
+                font-size: 14px;
+            }
         }
     }
 
@@ -36,6 +43,10 @@
             .percentage {
                 font-weight: bold;
                 font-size: 20px;
+
+                @include xxl {
+                    font-size: 16px;
+                }
             }
 
             .duration {

@@ -57,7 +57,7 @@ const columns: GridColDef[] = [
 const Products = () => {
   const [open, setOpen] = useState(false);
   const { isPending, data } = useQuery({
-    queryKey: ['repoData'],
+    queryKey: ['allproducts'],
     queryFn: () =>
       fetch('http://localhost:8800/api/products').then(
         (res) => res.json(),
